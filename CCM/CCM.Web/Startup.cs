@@ -1,15 +1,7 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using CCP.Application;
 using CCP.Application.Contexts;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
+using CCP.Infrastructure.Configuation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
@@ -21,53 +13,24 @@ namespace CCM.Web
     public class Startup
     {
         public IConfiguration Configuration { get; }
-
+        private readonly AAConfiguration aAConfiguration;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            aAConfiguration = new AAConfiguration();
         }
-
-        //private string cookie = "CookieAuth";        
+    
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<AppDbContext>();
             services
-                .AddIdentity<IdentityUser, IdentityRole>(ConfigIdentity)
+                .AddIdentity<IdentityUser, IdentityRole>(aAConfiguration.ConfigIdentity)
                 .AddEntityFrameworkStores<AppDbContext>()
                 .AddDefaultTokenProviders();
-            //services
-            //    .AddAuthentication(cookie)
-            //    .AddCookie(cookie, ConfigCookieAuthentication);
-            services.ConfigureApplicationCookie(ConfigCookieAuthentication);
-            services.AddAuthorization(ConfigAuthorization);
+            services.ConfigureApplicationCookie(aAConfiguration.ConfigCookieAuthentication);
+            services.AddAuthorization(aAConfiguration.ConfigAuthorization);
             services.AddControllersWithViews();
             services.AddRazorPages();
-        }
-
-        private void ConfigIdentity(IdentityOptions options)
-        {
-            options.Password.RequiredLength = 4;
-            options.Password.RequireDigit = false;
-            options.Password.RequireNonAlphanumeric = false;
-            options.Password.RequireUppercase = false;
-        }
-
-        private string userCookie = "UserCookie";
-        private string authenticationPath = "/Home/Login";
-        private void ConfigCookieAuthentication(CookieAuthenticationOptions config)
-        {
-            config.Cookie.Name = userCookie;
-            config.LoginPath = authenticationPath;
-        }
-
-        private void ConfigAuthorization(AuthorizationOptions options)
-        {
-            AuthorizationPolicyBuilder authorizationBuilder = new AuthorizationPolicyBuilder();
-            AuthorizationPolicy authorizationPolicy = authorizationBuilder
-                                                                    .RequireAuthenticatedUser()
-                                                                    .RequireClaim(ClaimTypes.Name)
-                                                                    .Build();
-            options.DefaultPolicy = authorizationPolicy;
         }
 
         private string errorPath = "/Home/Error";
@@ -90,11 +53,13 @@ namespace CCM.Web
             app.UseEndpoints(ConfigureEndPointsRoute);
         }
 
+        private string defaultName = "default";
+        private string pattern = "{controller=Home}/{action=Index}/{id?}";
         private void ConfigureEndPointsRoute(IEndpointRouteBuilder endpoints)
         {
             endpoints.MapControllerRoute(
-                    name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    name: defaultName,
+                    pattern: pattern);
             endpoints.MapRazorPages();
         }
     }

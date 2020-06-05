@@ -1,6 +1,5 @@
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Hosting;
-using System;
 
 namespace CCM.Web
 {
@@ -8,14 +7,7 @@ namespace CCM.Web
     {
         public static void Main(string[] args)
         {
-            try
-            {
-                CreateHostBuilder(args).Build().Run();
-            }
-            catch(Exception ex)
-            {
-
-            }
+            CreateHostBuilder(args).Build().Run();
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args) =>
@@ -24,5 +16,6 @@ namespace CCM.Web
                 {
                     webBuilder.UseStartup<Startup>();
                 });
+
     }
 }

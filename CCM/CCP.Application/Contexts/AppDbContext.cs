@@ -10,12 +10,6 @@ namespace CCP.Application.Contexts
             
         }
 
-        protected override void OnModelCreating(ModelBuilder builder)
-        {
-            //TODO: docoelowo do zastąpinienia przez własną implementację
-            base.OnModelCreating(builder);
-        }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlServer("Data Source=localhost;Initial Catalog=ConstructionCompany; User ID=sa; Password=qwerty;");

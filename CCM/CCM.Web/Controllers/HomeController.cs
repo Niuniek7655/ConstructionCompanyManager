@@ -54,6 +54,7 @@ namespace CCM.Web.Controllers
                 var signInResult = await _signInManager.PasswordSignInAsync(user, password, false, false);
                 if(signInResult.Succeeded)
                 {
+                    _logger.LogInformation("User login correct to application", username);
                     RedirectToAction("Index");
                 }
             }
@@ -74,9 +75,11 @@ namespace CCM.Web.Controllers
             IdentityResult result = await _userManager.CreateAsync(user, password);
             if(result.Succeeded)
             {
+                _logger.LogInformation("User account create correct", username);
                 var signInResult = await _signInManager.PasswordSignInAsync(user, password, false, false);
                 if (signInResult.Succeeded)
                 {
+                    _logger.LogInformation("User login correct to application", username);
                     RedirectToAction("Index");
                 }
             }
