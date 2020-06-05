@@ -31,6 +31,9 @@ namespace CCM.Web
             services.AddAuthorization(aAConfiguration.ConfigAuthorization);
             services.AddControllersWithViews();
             services.AddRazorPages();
+            services
+                .AddControllersWithViews()
+                .AddRazorRuntimeCompilation();
         }
 
         private string errorPath = "/Home/Error";
