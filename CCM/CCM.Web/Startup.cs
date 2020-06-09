@@ -14,10 +14,12 @@ namespace CCM.Web
     {
         public IConfiguration Configuration { get; }
         private readonly AAConfiguration aAConfiguration;
+        private readonly AntiforgeryConfiguration antiforgeryConfiguration;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
             aAConfiguration = new AAConfiguration();
+            antiforgeryConfiguration = new AntiforgeryConfiguration();
         }
     
         public void ConfigureServices(IServiceCollection services)
@@ -34,8 +36,10 @@ namespace CCM.Web
             services
                 .AddControllersWithViews()
                 .AddRazorRuntimeCompilation();
+            services.AddMvc(antiforgeryConfiguration.ConfigMvcOptions);
+            services.AddAntiforgery(antiforgeryConfiguration.ConfigAntyforgery);
         }
-
+ 
         private string errorPath = "/Home/Error";
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

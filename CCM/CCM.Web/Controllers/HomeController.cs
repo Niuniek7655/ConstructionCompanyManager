@@ -39,50 +39,49 @@ namespace CCM.Web.Controllers
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
 
-        [HttpGet]
-        public IActionResult Login()
-        {
-            return View();
-        }
-
         [HttpPost]
-        public async Task<IActionResult> Login(string username, string password)
+        public async Task<IActionResult> Login(LoginViewModel model)
         {
-            IdentityUser user = await _userManager.FindByNameAsync(username);
-            if(user != null)
+            IdentityUser user = await _userManager.FindByNameAsync(model.Password);
+            if (user != null)
             {
-                var signInResult = await _signInManager.PasswordSignInAsync(user, password, false, false);
-                if(signInResult.Succeeded)
+                var signInResult = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
+                if (signInResult.Succeeded)
                 {
-                    _logger.LogInformation("User login correct to application", username);
+                    _logger.LogInformation("User login correct to application", model.Login);
                     RedirectToAction("Index");
                 }
             }
             return RedirectToAction("Index");
         }
 
-        [HttpGet]
-        public IActionResult Register()
+        public IActionResult LoginOnFb()
         {
-            return View();
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(string username, string password)
+        public async Task<IActionResult> Register(RegisterViewModel registerUser)
         {
             IdentityUser user = new IdentityUser();
-            user.UserName = username;
-            IdentityResult result = await _userManager.CreateAsync(user, password);
-            if(result.Succeeded)
+            user.UserName = registerUser.Login;
+            IdentityResult result = await _userManager.CreateAsync(user, registerUser.Password);
+            if (result.Succeeded)
             {
-                _logger.LogInformation("User account create correct", username);
-                var signInResult = await _signInManager.PasswordSignInAsync(user, password, false, false);
+                _logger.LogInformation("User account create correct", registerUser.Login);
+                var signInResult = await _signInManager.PasswordSignInAsync(user, registerUser.Password, false, false);
                 if (signInResult.Succeeded)
                 {
-                    _logger.LogInformation("User login correct to application", username);
+                    _logger.LogInformation("User login correct to application", registerUser.Login);
                     RedirectToAction("Index");
                 }
             }
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult RegisterOnFb()
+        {
             return RedirectToAction("Index");
         }
 
