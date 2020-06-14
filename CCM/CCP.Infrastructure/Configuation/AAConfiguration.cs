@@ -16,7 +16,7 @@ namespace CCP.Infrastructure.Configuation
         }
 
         private string userCookie = "UserCookie";
-        private string authenticationPath = "/Home/Login";
+        private string authenticationPath = "/Access/Login";
         public void ConfigCookieAuthentication(CookieAuthenticationOptions config)
         {
             config.Cookie.Name = userCookie;
