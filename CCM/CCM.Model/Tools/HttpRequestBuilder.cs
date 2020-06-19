@@ -3,16 +3,17 @@ using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
 using System;
+using Microsoft.Extensions.Logging;
 
 namespace CCM.Model.Tools
 {
     public class HttpRequestBuilder : IHttpRequestBuilder
     {
         private HttpRequestMessage _requestMessage;
-
-        public HttpRequestBuilder()
+        private readonly ILogger<HttpRequestBuilder> _logger;
+        public HttpRequestBuilder(ILogger<HttpRequestBuilder> logger)
         {
-            
+            _logger = logger;
         }
 
         private const string firstBuildError = "Add Uri and HTTP method before you add another elements";
@@ -21,6 +22,7 @@ namespace CCM.Model.Tools
         {
             if(_requestMessage == null)
             {
+                _logger.LogError(firstBuildError);
                 throw new Exception(firstBuildError);
             }
             JsonSerializerSettings settings = new JsonSerializerSettings
@@ -37,6 +39,7 @@ namespace CCM.Model.Tools
         {
             if (_requestMessage == null)
             {
+                _logger.LogError(firstBuildError);
                 throw new Exception(firstBuildError);
             }
             _requestMessage.Headers.Add(header.HeaderName, header.HeaderValue);
@@ -84,6 +87,7 @@ namespace CCM.Model.Tools
             }
             else
             {
+                _logger.LogError(secondBuildError);
                 throw new Exception(secondBuildError);
             }
         }

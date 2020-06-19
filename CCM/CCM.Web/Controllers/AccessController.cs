@@ -1,18 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CCM.Web.Models;
-using System.Security.Claims;
-using System.Runtime.Serialization;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Identity;
-using System.Net.Http;
 using AutoMapper;
-using CCM.Domain.Tools;
 using CCM.Model;
 using CCM.Domain;
 using CCM.Domain.Enums;
@@ -46,7 +37,7 @@ namespace CCM.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel viewModel)
         {
-            ILoginData model = _mapper.Map<LoginViewModel, ILoginData>(viewModel);
+            ILoginData model = _mapper.Map<LoginViewModel, LoginData>(viewModel);
             LoginStatus isLogin = await _basicAccessSender.Login(model);
             RedirectToActionResult result = null;
             switch (isLogin)
@@ -75,7 +66,7 @@ namespace CCM.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel viewModel)
         {
-            IRegisterData model = _mapper.Map<RegisterViewModel, IRegisterData>(viewModel);
+            IRegisterData model = _mapper.Map<RegisterViewModel, RegisterData>(viewModel);
             RegistrationStatus isRegisterAndLogin = await _basicAccessSender.Register(model);
             RedirectToActionResult result = null;
             switch (isRegisterAndLogin)

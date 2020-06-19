@@ -4,17 +4,13 @@ using CCM.Domain.Tools;
 using CCM.Model;
 using CCM.Model.Tools;
 using CCM.Web.Models;
-using CCP.Application.Contexts;
 using CCP.Infrastructure.Configuation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using System;
-using System.Net.Http;
 
 namespace CCM.Web
 {
@@ -41,13 +37,7 @@ namespace CCM.Web
 
         private void BasicConfig(IServiceCollection services)
         {
-            services.AddDbContext<AppDbContext>();
-            services
-                .AddIdentity<IdentityUser, IdentityRole>(aAConfiguration.ConfigIdentity)
-                .AddEntityFrameworkStores<AppDbContext>()
-                .AddDefaultTokenProviders();
             services.ConfigureApplicationCookie(aAConfiguration.ConfigCookieAuthentication);
-            services.AddAuthorization(aAConfiguration.ConfigAuthorization);
             services.AddControllersWithViews();
             services.AddRazorPages();
             services
@@ -80,14 +70,12 @@ namespace CCM.Web
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
-            app.UseAuthorization();
-            app.UseAuthorization();
-            app.UseEndpoints(ConfigureEndPointsRoute);
+            app.UseEndpoints(ConfigureApplicationEndpointsRoute);
         }
 
         private string defaultName = "default";
         private string pattern = "{controller=Access}/{action=Start}/{id?}";
-        private void ConfigureEndPointsRoute(IEndpointRouteBuilder endpoints)
+        private void ConfigureApplicationEndpointsRoute(IEndpointRouteBuilder endpoints)
         {
             endpoints.MapControllerRoute(
                     name: defaultName,

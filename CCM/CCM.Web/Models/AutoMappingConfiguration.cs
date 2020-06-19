@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using CCM.Domain;
+using CCM.Model;
 
 namespace CCM.Web.Models
 {
@@ -7,8 +7,8 @@ namespace CCM.Web.Models
     {
         public AutoMappingConfiguration()
         {
-            CreateMap<LoginViewModel, ILoginData>();
-            CreateMap<RegisterViewModel, IRegisterData>();
+            CreateMap<LoginViewModel, LoginData>();
+            CreateMap<RegisterViewModel, RegisterData>();
         }
     }
 }
