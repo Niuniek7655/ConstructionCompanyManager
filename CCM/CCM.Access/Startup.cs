@@ -1,5 +1,4 @@
 using CCP.Application.Contexts;
-using CCP.Infrastructure.Configuation;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -9,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using CCM.Domain.Tools;
 using CCM.Model.Tools;
+using CCM.Constants;
+using CCP.Infrastructure.Configuations;
 
 namespace CCM.Access
 {
@@ -40,6 +41,8 @@ namespace CCM.Access
             services.AddControllers();
             services.AddRazorPages();
             services.Configure<IISServerOptions>(ConfigIISServerOptions);
+            IConfiguration accessMessageConfiguration = Configuration.GetSection(ConstantValues.AccessMessageSection);
+            services.Configure<AccessMessage>(accessMessageConfiguration);
         }
 
         private void ConfigIISServerOptions(IISServerOptions options)

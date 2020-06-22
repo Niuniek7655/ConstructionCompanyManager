@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CCM.Constants\CCM.Constants.csproj" />
     <ProjectReference Include="..\CCM.Domain\CCM.Domain.csproj" />
     <ProjectReference Include="..\CCM.Model\CCM.Model.csproj" />
     <ProjectReference Include="..\CCP.Application\CCP.Application.csproj" />

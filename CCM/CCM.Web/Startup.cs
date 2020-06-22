@@ -1,10 +1,11 @@
 using AutoMapper;
+using CCM.Constants;
 using CCM.Domain;
 using CCM.Domain.Tools;
 using CCM.Model;
 using CCM.Model.Tools;
 using CCM.Web.Models;
-using CCP.Infrastructure.Configuation;
+using CCP.Infrastructure.Configuations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Routing;
@@ -28,7 +29,6 @@ namespace CCM.Web
             httpClientsConfiguration = new HttpClientsConfiguration();
         }
 
-        private const string accessClient = "AccessClient";
         public void ConfigureServices(IServiceCollection services)
         {
             BasicConfig(services);
@@ -45,8 +45,19 @@ namespace CCM.Web
                 .AddRazorRuntimeCompilation();
             services.AddMvc(antiforgeryConfiguration.ConfigMvcOptions);
             services.AddAntiforgery(antiforgeryConfiguration.ConfigAntyforgery);
-            services.AddHttpClient(accessClient, httpClientsConfiguration.ConfigAccessHttpClient);
+            services.AddHttpClient(ConstantValues.AccessClientName, httpClientsConfiguration.ConfigAccessHttpClient);
             services.AddAutoMapper(typeof(AutoMappingConfiguration));
+            ConfigSettings(services);
+        }
+
+        private void ConfigSettings(IServiceCollection services)
+        {
+            IConfiguration httpRequestBuilderDataConfiguration = Configuration.GetSection(ConstantValues.HttpRequestBuilderDataSection);
+            services.Configure<HttpRequestBuilderData>(httpRequestBuilderDataConfiguration);
+            IConfiguration requestBodyDeserializerDataConfiguration = Configuration.GetSection(ConstantValues.RequestBodyDeserializerDataSection);
+            services.Configure<RequestBodyDeserializerData>(requestBodyDeserializerDataConfiguration);
+            IConfiguration basicAccessSenderDataConfiguration = Configuration.GetSection(ConstantValues.BasicAccessSenderDataSection);
+            services.Configure<BasicAccessSenderData>(basicAccessSenderDataConfiguration);
         }
 
         private void DIConfig(IServiceCollection services)
@@ -55,7 +66,6 @@ namespace CCM.Web
             services.AddTransient<IBasicAccessSender, BasicAccessSender>();
         }
 
-        private string errorPath = "/Access/Error";
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -64,7 +74,7 @@ namespace CCM.Web
             }
             else
             {
-                app.UseExceptionHandler(errorPath);
+                app.UseExceptionHandler(ConstantValues.ErrorPath);
                 app.UseHsts();
             }
             app.UseHttpsRedirection();
@@ -73,13 +83,11 @@ namespace CCM.Web
             app.UseEndpoints(ConfigureApplicationEndpointsRoute);
         }
 
-        private string defaultName = "default";
-        private string pattern = "{controller=Access}/{action=Start}/{id?}";
         private void ConfigureApplicationEndpointsRoute(IEndpointRouteBuilder endpoints)
         {
             endpoints.MapControllerRoute(
-                    name: defaultName,
-                    pattern: pattern);
+                    name: ConstantValues.DefaultRouteName,
+                    pattern: ConstantValues.DefaultRoutePattern);
             endpoints.MapRazorPages();
         }
     }

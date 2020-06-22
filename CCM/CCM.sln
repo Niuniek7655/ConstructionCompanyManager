@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CCP.Infrastructure", "CCP.I
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{AD7F68FE-1B0E-4BF7-AFD3-5F0FD1D9FB3A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCM.Access", "CCM.Access\CCM.Access.csproj", "{AC537B36-C9CC-4C45-A572-F86402EABA1F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CCM.Access", "CCM.Access\CCM.Access.csproj", "{AC537B36-C9CC-4C45-A572-F86402EABA1F}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CCM.Constants", "CCM.Constants\CCM.Constants.csproj", "{714D3CCD-72ED-409A-9666-A0B702316608}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -47,6 +49,10 @@ Global
 		{AC537B36-C9CC-4C45-A572-F86402EABA1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC537B36-C9CC-4C45-A572-F86402EABA1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC537B36-C9CC-4C45-A572-F86402EABA1F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{714D3CCD-72ED-409A-9666-A0B702316608}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{714D3CCD-72ED-409A-9666-A0B702316608}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{714D3CCD-72ED-409A-9666-A0B702316608}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{714D3CCD-72ED-409A-9666-A0B702316608}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

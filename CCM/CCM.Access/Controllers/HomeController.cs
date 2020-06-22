@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CCM.Constants;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
 namespace CCM.Access.Controllers
 {
-    [Route("[controller]")]
+    [Route(ConstantValues.ControllerRoute)]
     [ApiController]
     public class HomeController : Controller
     {

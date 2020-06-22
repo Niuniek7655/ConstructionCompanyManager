@@ -1,14 +1,14 @@
-﻿using Microsoft.AspNetCore.Antiforgery;
+﻿using CCM.Constants;
+using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Mvc;
 
-namespace CCP.Infrastructure.Configuation
+namespace CCP.Infrastructure.Configuations
 {
     public class AntiforgeryConfiguration
     {
-        private string antiforgeryHeaderName = "__RequestVerificationToken";
         public void ConfigAntyforgery(AntiforgeryOptions option)
         {
-            option.HeaderName = antiforgeryHeaderName;
+            option.HeaderName = ConstantValues.AntiforgeryHeaderName;
         }
 
         public void ConfigMvcOptions(MvcOptions options)

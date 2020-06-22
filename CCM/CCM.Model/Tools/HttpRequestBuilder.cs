@@ -4,6 +4,8 @@ using System.Net.Http;
 using System.Text;
 using System;
 using Microsoft.Extensions.Logging;
+using CCM.Constants;
+using Microsoft.Extensions.Options;
 
 namespace CCM.Model.Tools
 {
@@ -11,26 +13,26 @@ namespace CCM.Model.Tools
     {
         private HttpRequestMessage _requestMessage;
         private readonly ILogger<HttpRequestBuilder> _logger;
-        public HttpRequestBuilder(ILogger<HttpRequestBuilder> logger)
+        private readonly HttpRequestBuilderData _data;
+        public HttpRequestBuilder(ILogger<HttpRequestBuilder> logger, IOptions<HttpRequestBuilderData> settings)
         {
             _logger = logger;
+            _data = settings.Value;
         }
 
-        private const string firstBuildError = "Add Uri and HTTP method before you add another elements";
-        private readonly string mediaType = "application/json";
         public IHttpRequestBuilder AddContent(object contentObject)
         {
             if(_requestMessage == null)
             {
-                _logger.LogError(firstBuildError);
-                throw new Exception(firstBuildError);
+                _logger.LogError(_data.FirstBuildError);
+                throw new Exception(_data.FirstBuildError);
             }
             JsonSerializerSettings settings = new JsonSerializerSettings
             {
                 TypeNameHandling = TypeNameHandling.All
             };
             string json = JsonConvert.SerializeObject(contentObject, settings);
-            StringContent content = new StringContent(json, Encoding.UTF8, mediaType);
+            StringContent content = new StringContent(json, Encoding.UTF8, _data.MediaType);
             _requestMessage.Content = content;
             return this;
         }
@@ -39,8 +41,8 @@ namespace CCM.Model.Tools
         {
             if (_requestMessage == null)
             {
-                _logger.LogError(firstBuildError);
-                throw new Exception(firstBuildError);
+                _logger.LogError(_data.FirstBuildError);
+                throw new Exception(_data.FirstBuildError);
             }
             _requestMessage.Headers.Add(header.HeaderName, header.HeaderValue);
             return this;
@@ -78,7 +80,6 @@ namespace CCM.Model.Tools
             return this;
         }
 
-        private const string secondBuildError = "Incorrect type to build object";
         public T Build<T>() where T : class
         {
             if(_requestMessage is T)
@@ -87,8 +88,8 @@ namespace CCM.Model.Tools
             }
             else
             {
-                _logger.LogError(secondBuildError);
-                throw new Exception(secondBuildError);
+                _logger.LogError(_data.SecondBuildError);
+                throw new Exception(_data.SecondBuildError);
             }
         }
     }

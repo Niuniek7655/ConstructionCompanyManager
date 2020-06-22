@@ -1,9 +1,10 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using CCM.Constants;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
 
-namespace CCP.Infrastructure.Configuation
+namespace CCP.Infrastructure.Configuations
 {
     public class AAConfiguration
     {
@@ -15,12 +16,10 @@ namespace CCP.Infrastructure.Configuation
             options.Password.RequireUppercase = false;
         }
 
-        private string userCookie = "UserCookie";
-        private string authenticationPath = "/Access/Login";
         public void ConfigCookieAuthentication(CookieAuthenticationOptions config)
         {
-            config.Cookie.Name = userCookie;
-            config.LoginPath = authenticationPath;
+            config.Cookie.Name = ConstantValues.UserCookieName;
+            config.LoginPath = ConstantValues.AuthenticationPath;
         }
 
         public void ConfigAuthorization(AuthorizationOptions options)

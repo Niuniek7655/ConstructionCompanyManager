@@ -6,6 +6,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CCM.Constants\CCM.Constants.csproj" />
     <ProjectReference Include="..\CCM.Domain\CCM.Domain.csproj" />
     <ProjectReference Include="..\CCP.Infrastructure\CCP.Infrastructure.csproj" />
   </ItemGroup>

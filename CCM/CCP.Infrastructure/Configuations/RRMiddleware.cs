@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
-namespace CCP.Infrastructure.Configuation
+namespace CCP.Infrastructure.Configuations
 {
     public class RRMiddleware
     {

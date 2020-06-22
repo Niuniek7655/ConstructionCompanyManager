@@ -3,18 +3,21 @@ using Newtonsoft.Json;
 using System.IO;
 using System;
 using Microsoft.Extensions.Logging;
+using CCM.Constants;
+using Microsoft.Extensions.Options;
 
 namespace CCM.Model.Tools
 {
     public class RequestBodyDeserializer : IRequestBodyDeserializer
     {
         private readonly ILogger<RequestBodyDeserializer> _logger;
-        public RequestBodyDeserializer(ILogger<RequestBodyDeserializer> logger)
+        private readonly RequestBodyDeserializerData _data;
+        public RequestBodyDeserializer(ILogger<RequestBodyDeserializer> logger, IOptions<RequestBodyDeserializerData> settings)
         {
             _logger = logger;
+            _data = settings.Value;
         }
 
-        private const string deserializeError = "Incorrect type of serialization";
         public T DeserializerRequest<T>(Stream stream)
         {
             string stringContent = null;
@@ -34,7 +37,7 @@ namespace CCM.Model.Tools
             catch(JsonSerializationException ex)
             {
                 _logger.LogInformation(ex.Message);
-                throw new Exception(deserializeError);
+                throw new Exception(_data.DeserializeError);
             }
             return result;
         }
