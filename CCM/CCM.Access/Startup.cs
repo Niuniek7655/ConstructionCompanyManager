@@ -6,10 +6,11 @@ using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using CCM.Domain.Tools;
-using CCM.Model.Tools;
 using CCM.Constants;
 using CCP.Infrastructure.Configuations;
+using CCM.Domain;
+using CCP.Application;
+using CCM.Domain.Loggers;
 
 namespace CCM.Access
 {
@@ -41,8 +42,9 @@ namespace CCM.Access
             services.AddControllers();
             services.AddRazorPages();
             services.Configure<IISServerOptions>(ConfigIISServerOptions);
-            IConfiguration accessMessageConfiguration = Configuration.GetSection(ConstantValues.AccessMessageSection);
-            services.Configure<AccessMessage>(accessMessageConfiguration);
+
+            IConfiguration settingsConfiguration = Configuration.GetSection(ConstantValues.Settings);
+            services.Configure<Settings>(settingsConfiguration);
         }
 
         private void ConfigIISServerOptions(IISServerOptions options)
@@ -52,7 +54,8 @@ namespace CCM.Access
 
         private void DIConfig(IServiceCollection services)
         {
-            services.AddSingleton<IRequestBodyDeserializer, RequestBodyDeserializer>();
+            services.AddTransient<IAccessManager, AccessManager>();
+            services.AddTransient(typeof(IAcessAPILogger<>), typeof(AcessAPILogger<>));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

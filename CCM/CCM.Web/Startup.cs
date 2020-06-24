@@ -47,17 +47,9 @@ namespace CCM.Web
             services.AddAntiforgery(antiforgeryConfiguration.ConfigAntyforgery);
             services.AddHttpClient(ConstantValues.AccessClientName, httpClientsConfiguration.ConfigAccessHttpClient);
             services.AddAutoMapper(typeof(AutoMappingConfiguration));
-            ConfigSettings(services);
-        }
 
-        private void ConfigSettings(IServiceCollection services)
-        {
-            IConfiguration httpRequestBuilderDataConfiguration = Configuration.GetSection(ConstantValues.HttpRequestBuilderDataSection);
-            services.Configure<HttpRequestBuilderData>(httpRequestBuilderDataConfiguration);
-            IConfiguration requestBodyDeserializerDataConfiguration = Configuration.GetSection(ConstantValues.RequestBodyDeserializerDataSection);
-            services.Configure<RequestBodyDeserializerData>(requestBodyDeserializerDataConfiguration);
-            IConfiguration basicAccessSenderDataConfiguration = Configuration.GetSection(ConstantValues.BasicAccessSenderDataSection);
-            services.Configure<BasicAccessSenderData>(basicAccessSenderDataConfiguration);
+            IConfiguration settingsConfiguration = Configuration.GetSection(ConstantValues.Settings);
+            services.Configure<Settings>(settingsConfiguration);
         }
 
         private void DIConfig(IServiceCollection services)

@@ -7,6 +7,7 @@ using System.Net;
 using CCM.Domain.Enums;
 using Microsoft.Extensions.Options;
 using CCM.Constants;
+using CCM.Model.DTO;
 
 namespace CCM.Model
 {
@@ -16,10 +17,10 @@ namespace CCM.Model
         private readonly BasicAccessSenderData _data;
         private readonly IHttpRequestBuilder _requestBuilder;
         private readonly IHttpClientFactory _clientFactory;
-        public BasicAccessSender(ILogger<BasicAccessSender> logger, IOptions<BasicAccessSenderData> settings, IHttpClientFactory clientFactory, IHttpRequestBuilder requestBuilder)
+        public BasicAccessSender(ILogger<BasicAccessSender> logger, IOptions<Settings> settings, IHttpClientFactory clientFactory, IHttpRequestBuilder requestBuilder)
         {
             _logger = logger;
-            _data = settings.Value;
+            _data = settings.Value.BasicAccessSenderData;
             _clientFactory = clientFactory;
             _requestBuilder = requestBuilder;
         }
@@ -29,7 +30,7 @@ namespace CCM.Model
             HttpRequestMessage request = _requestBuilder
                                                     .AddHttpMethod(HttpMethod.Post)
                                                     .AddUri(_data.LoginUri)
-                                                    .AddContent(loginData)
+                                                    .AddContent(loginData as LoginDataDTO)
                                                     .Build<HttpRequestMessage>();
             LoginStatus status;
             using(HttpClient client = _clientFactory.CreateClient(_data.AccessClient))
@@ -71,7 +72,7 @@ namespace CCM.Model
             HttpRequestMessage request = _requestBuilder
                                                     .AddHttpMethod(HttpMethod.Post)
                                                     .AddUri(_data.RegisterUri)
-                                                    .AddContent(registerData)
+                                                    .AddContent(registerData as RegisterDataDTO)
                                                     .Build<HttpRequestMessage>();
             RegistrationStatus status;
             using (HttpClient client = _clientFactory.CreateClient(_data.AccessClient))

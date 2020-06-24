@@ -14,10 +14,10 @@ namespace CCM.Model.Tools
         private HttpRequestMessage _requestMessage;
         private readonly ILogger<HttpRequestBuilder> _logger;
         private readonly HttpRequestBuilderData _data;
-        public HttpRequestBuilder(ILogger<HttpRequestBuilder> logger, IOptions<HttpRequestBuilderData> settings)
+        public HttpRequestBuilder(ILogger<HttpRequestBuilder> logger, IOptions<Settings> settings)
         {
             _logger = logger;
-            _data = settings.Value;
+            _data = settings.Value.HttpRequestBuilderData;
         }
 
         public IHttpRequestBuilder AddContent(object contentObject)

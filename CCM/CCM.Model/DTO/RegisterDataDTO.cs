@@ -1,8 +1,8 @@
 ﻿using CCM.Domain;
 
-namespace CCM.Model
+namespace CCM.Model.DTO
 {
-    public class RegisterData : IRegisterData
+    public class RegisterDataDTO : IRegisterData
     {
         public string Login { get; set; }
         public string Email { get; set; }

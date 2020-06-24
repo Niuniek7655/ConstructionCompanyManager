@@ -1,11 +1,11 @@
 ﻿using System.Threading.Tasks;
+using CCM.Access.Extensions;
 using CCM.Constants;
 using CCM.Domain;
-using CCM.Domain.Tools;
-using Microsoft.AspNetCore.Identity;
+using CCM.Domain.Enums;
+using CCM.Domain.Loggers;
+using CCM.Model.DTO;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace CCM.Access.Controllers
 {
@@ -13,76 +13,31 @@ namespace CCM.Access.Controllers
     [ApiController]
     public class BasicController : ControllerBase
     {
-        private readonly ILogger<BasicController> _logger;
-        private readonly AccessMessage _accessMessage;
-        private readonly IRequestBodyDeserializer _requestDeserializer;
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly IAccessManager _accessManager;
+        private readonly IAcessAPILogger<BasicController> _logger;
 
-        public BasicController(ILogger<BasicController> logger, IOptions<AccessMessage> settings, IRequestBodyDeserializer requestDeserializer, 
-                               UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public BasicController(IAccessManager accessManager, IAcessAPILogger<BasicController> logger)
         {
+            _accessManager = accessManager;
             _logger = logger;
-            _accessMessage = settings.Value;
-            _requestDeserializer = requestDeserializer;
-            _userManager = userManager;
-            _signInManager = signInManager;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login()
+        public async Task<IActionResult> Login(LoginDataDTO model)
         {
-            ILoginData model = _requestDeserializer.DeserializerRequest<ILoginData>(Request.Body);
-            IdentityUser user = await _userManager.FindByNameAsync(model.Login);
-            if (user != null)
-            {
-                var signInResult = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
-                if (signInResult.Succeeded)
-                {
-                    _logger.LogInformation(_accessMessage.Ms1, model.Login);
-                    return Ok();
-                }
-                else
-                {
-                    _logger.LogInformation(_accessMessage.Ms2, model.Login);
-                    return Unauthorized();
-                }
-            }
-            else
-            {
-                _logger.LogInformation(_accessMessage.Ms3, model.Login);
-                return NotFound();
-            }
+            LoginStatus status = await _accessManager.Login(model);
+            _logger.LogLoginState(status, model.Login);
+            IActionResult result = status.LoginStatusResponse();
+            return result;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register()
+        public async Task<IActionResult> Register(RegisterDataDTO model)
         {
-            IRegisterData model = _requestDeserializer.DeserializerRequest<IRegisterData>(Request.Body);
-            IdentityUser user = new IdentityUser();
-            user.UserName = model.Login;
-            IdentityResult result = await _userManager.CreateAsync(user, model.Password);
-            if (result.Succeeded)
-            {
-                _logger.LogInformation(_accessMessage.Ms4, model.Login);
-                var signInResult = await _signInManager.PasswordSignInAsync(user, model.Password, false, false);
-                if (signInResult.Succeeded)
-                {
-                    _logger.LogInformation(_accessMessage.Ms1, model.Login);
-                    return Ok();
-
-                }
-                else
-                {
-                    _logger.LogInformation(_accessMessage.Ms2, model.Login);
-                    return Unauthorized();
-                }
-            }
-            else
-            {
-                _logger.LogInformation(_accessMessage.Ms5, model.Login);
-                return Forbid();
-            }
+            RegistrationStatus status = await _accessManager.Register(model);
+            _logger.LogRegistrationState(status, model.Login);
+            IActionResult result = status.RegisterStatusResponse();
+            return result;
         }
     }
 }

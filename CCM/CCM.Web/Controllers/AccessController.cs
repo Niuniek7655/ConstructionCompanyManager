@@ -4,9 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using CCM.Web.Models;
 using AutoMapper;
-using CCM.Model;
 using CCM.Domain;
 using CCM.Domain.Enums;
+using CCM.Model.DTO;
 
 namespace CCM.Web.Controllers
 {
@@ -37,7 +37,7 @@ namespace CCM.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel viewModel)
         {
-            ILoginData model = _mapper.Map<LoginViewModel, LoginData>(viewModel);
+            ILoginData model = _mapper.Map<LoginViewModel, LoginDataDTO>(viewModel);
             LoginStatus isLogin = await _basicAccessSender.Login(model);
             RedirectToActionResult result = null;
             switch (isLogin)
@@ -66,7 +66,7 @@ namespace CCM.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel viewModel)
         {
-            IRegisterData model = _mapper.Map<RegisterViewModel, RegisterData>(viewModel);
+            IRegisterData model = _mapper.Map<RegisterViewModel, RegisterDataDTO>(viewModel);
             RegistrationStatus isRegisterAndLogin = await _basicAccessSender.Register(model);
             RedirectToActionResult result = null;
             switch (isRegisterAndLogin)
