@@ -1,31 +1,42 @@
 ﻿@model LoginViewModel
 <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-7 col-md-offset-2 col-sm-8 col-sm-offset-2">
-    <div class="panel panel-info">
-        <div class="panel-heading">
-            <div class="panel-title">Zaloguj</div>
-            <div style="float:right; font-size: 80%; position: relative; top:-10px"><a href="#">Zapomniałeś hasła ?</a></div>
+    <div class="card card-info">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-8">
+                    <h6>Zaloguj</h6>   
+                </div>
+                <div class="col-md-4">
+                    <div style="float:right; font-size:80%"><a href="#">Zapomniałeś hasła ?</a></div>
+                </div>
+            </div>
         </div>
-
-        <div style="padding-top:30px" class="panel-body">
-
+        <div style="padding-top:30px" class="card-body">
             <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>
-           
-                @using (Html.BeginForm("Login", "Access", FormMethod.Post, new { id = "loginform", @class = "form-horizontal", role = "form" }))
-                {
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-                        @Html.TextBoxFor(x => x.Login, new
-                                {
-                                    id = "login-username",
-                                    type = "text",
-                                    @class = "form-control",
-                                    name = "username",
-                                    placeholder = "Nazwa użytkownika lub email"
-                                })
-                    </div>
 
-                    <div style="margin-bottom: 25px" class="input-group">
-                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+            @using (Html.BeginForm("Login", "Access", FormMethod.Post, new { id = "loginform", @class = "form-horizontal", role = "form" }))
+            {
+                <div class="form-group">
+                    <div class="input-group input-group-lg">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-user"></i></span>
+                        </div>
+                        @Html.TextBoxFor(x => x.Login, new
+                              {
+                                  id = "login-username",
+                                  type = "text",
+                                  @class = "form-control",
+                                  name = "username",
+                                  placeholder = "Nazwa użytkownika lub email"
+                              })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="input-group input-group-lg">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text"><i class="fa fa-lock"></i></span>
+                        </div>
                         @Html.TextBoxFor(x => x.Password, new
                                 {
                                     id = "login-password",
@@ -35,36 +46,37 @@
                                     placeholder = "Hasło"
                                 })
                     </div>
+                </div>
 
-                    <div class="input-group">
-                        <div class="checkbox">
-                            <label>
-                                <input id="login-remember" type="checkbox" name="remember" value="1"> Zapamniętaj mnie
-                            </label>
-                        </div>
-                    </div>
-
-
-                    <div style="margin-top:10px" class="form-group">
-
-                        <div class="col-sm-12 controls">
-                            <button id="btn-login" type="submit" class="btn btn-success">Zaloguj</button>
-                            <button id="btn-fblogin" asp-controller="Access" asp-action="LoginOnFb" type="submit" class="btn btn-primary">Zaloguj przez Facebook'a</button>
-                        </div>
-                    </div>
-                }
-
-                <div class="form-group">
-                    <div class="col-md-12 control">
-                        <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
-                            Nie masz konta!
-                            <a href="#" onClick="$('#loginbox').hide(); $('#signupbox').show()">
-                                Zarejestruj się !
-                            </a>
-                        </div>
+                <div class="input-group">
+                    <div class="checkbox">
+                        <label>
+                            <input id="login-remember" type="checkbox" name="remember" value="1"> Zapamniętaj mnie
+                        </label>
                     </div>
                 </div>
-            
+
+
+                <div style="margin-top:10px" class="form-group">
+
+                    <div class="col-sm-12 controls">
+                        <button id="btn-login" type="submit" class="btn btn-success">Zaloguj</button>
+                        <button id="btn-fblogin" asp-controller="Access" asp-action="LoginOnFb" type="submit" class="btn btn-primary">Zaloguj przez Facebook'a</button>
+                    </div>
+                </div>
+            }
+
+            <div class="form-group">
+                <div class="col-md-12 control">
+                    <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
+                        Nie masz konta!
+                        <a href="#" onClick="$('#loginbox').hide(); $('#signupbox').show()">
+                            Zarejestruj się !
+                        </a>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
