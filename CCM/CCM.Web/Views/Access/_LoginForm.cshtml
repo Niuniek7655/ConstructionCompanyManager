@@ -16,37 +16,47 @@
 
             @using (Html.BeginForm("Login", "Access", FormMethod.Post, new { id = "loginform", @class = "form-horizontal", role = "form" }))
             {
-                <div class="form-group">
-                    <div class="input-group input-group-lg">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-user"></i></span>
-                        </div>
-                        @Html.TextBoxFor(x => x.Login, new
-                              {
-                                  id = "login-username",
-                                  type = "text",
-                                  @class = "form-control",
-                                  name = "username",
-                                  placeholder = "Nazwa użytkownika lub email"
-                              })
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-user"></i></span>
                     </div>
+                    @Html.TextBoxFor(x => x.Login, new
+                          {
+                              id = "login-username",
+                              type = "text",
+                              @class = "form-control",
+                              name = "username",
+                              placeholder = "Nazwa użytkownika lub email"
+                          })
                 </div>
+                <div class="col-sm-12">
+                    <small id="usernameWarning" style="display:none" class="text-danger">
+                        Pole "Login" jest wymagane
+                    </small>
+                </div>
+            </div>
 
-                <div class="form-group">
-                    <div class="input-group input-group-lg">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fa fa-lock"></i></span>
-                        </div>
-                        @Html.TextBoxFor(x => x.Password, new
-                                {
-                                    id = "login-password",
-                                    type = "password",
-                                    @class = "form-control",
-                                    name = "password",
-                                    placeholder = "Hasło"
-                                })
+            <div class="form-group">
+                <div class="input-group input-group-lg">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text"><i class="fa fa-lock"></i></span>
                     </div>
+                    @Html.TextBoxFor(x => x.Password, new
+                            {
+                                id = "login-password",
+                                type = "password",
+                                @class = "form-control",
+                                name = "password",
+                                placeholder = "Hasło"
+                            })
                 </div>
+                <div class="col-sm-12">
+                    <small id="passwordWarning" style="display:none" class="text-danger">
+                        Pole "Hasło" jest wymagane
+                    </small>
+                </div>
+            </div>
 
                 <div class="input-group">
                     <div class="checkbox">

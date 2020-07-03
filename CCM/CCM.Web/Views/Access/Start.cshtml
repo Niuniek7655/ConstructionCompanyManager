@@ -3,6 +3,11 @@
 }
 
 <div class="container">
-    @await  Html.PartialAsync("_LoginForm")
-    @await  Html.PartialAsync("_RegisterForm")
+    @await Html.PartialAsync("_LoginForm")
+    @await Html.PartialAsync("_RegisterForm")
 </div>
+
+@section scripts {
+    <script src="~/js/LoginValidation.js"></script>
+    <script src="~/js/RegisterValidation.js"></script>
+}

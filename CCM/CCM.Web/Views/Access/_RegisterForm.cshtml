@@ -17,8 +17,7 @@
             @using (Html.BeginForm("Register", "Access", FormMethod.Post, new { id = "signupform", @class = "form-horizontal", role = "form" }))
             {
                 <div id="signupalert" style="display:none" class="alert alert-danger">
-                    <p>Błąd:</p>
-                    <span></span>
+                    <p id="signup-error-message"></p>
                 </div>
 
                 <div class="form-group">
@@ -32,6 +31,11 @@
                             name = "username",
                             placeholder = "Login"
                         })
+                    </div>
+                    <div class="col-sm-12">
+                        <small id="usernameWarning" style="display:none" class="text-danger"> 
+                            Pole "Login" jest wymagane
+                        </small>
                     </div>
                 </div>
 
@@ -47,6 +51,11 @@
                             placeholder = "Email"
                         })
                     </div>
+                    <div class="col-sm-12">
+                        <small id="emailWarning" style="display:none" class="text-danger">
+                            Pole "Email" jest wymagane
+                        </small>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -60,6 +69,11 @@
                             name = "password",
                             placeholder = "Hasło"
                         })
+                    </div>
+                    <div class="col-sm-12">
+                        <small id="passwordWarning" style="display:none" class="text-danger">
+                            Pole "Hasło" jest wymagane
+                        </small>
                     </div>
                 </div>
 
@@ -75,6 +89,11 @@
                             placeholder = "Potwierdz hasło"
                         })
                     </div>
+                    <div class="col-sm-12">
+                        <small id="confirmpasswordWarning" style="display:none" class="text-danger">
+                            Pole "Potwierdz hasło" jest wymagane
+                        </small>
+                    </div>
                 </div>
 
                 <div class="form-group">
@@ -86,5 +105,4 @@
             }
         </div>
     </div>
-
 </div>
