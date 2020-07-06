@@ -2,10 +2,10 @@
 using Newtonsoft.Json;
 using System.Net.Http;
 using System.Text;
-using System;
 using Microsoft.Extensions.Logging;
 using CCM.Constants;
 using Microsoft.Extensions.Options;
+using CCM.Model.Exceptions;
 
 namespace CCM.Model.Tools
 {
@@ -25,7 +25,12 @@ namespace CCM.Model.Tools
             if(_requestMessage == null)
             {
                 _logger.LogError(_data.FirstBuildError);
-                throw new Exception(_data.FirstBuildError);
+                throw new HttpRequestBuilderException(_data.FirstBuildError);
+            }
+            if(_requestMessage.Content != null)
+            {
+                _logger.LogError(_data.FifthBuildError);
+                throw new HttpRequestBuilderException(_data.FifthBuildError);
             }
             JsonSerializerSettings settings = new JsonSerializerSettings
             {
@@ -42,7 +47,7 @@ namespace CCM.Model.Tools
             if (_requestMessage == null)
             {
                 _logger.LogError(_data.FirstBuildError);
-                throw new Exception(_data.FirstBuildError);
+                throw new HttpRequestBuilderException(_data.FirstBuildError);
             }
             _requestMessage.Headers.Add(header.HeaderName, header.HeaderValue);
             return this;
@@ -59,6 +64,11 @@ namespace CCM.Model.Tools
             }
             else
             {
+                if(httpMethod != null)
+                {
+                    _logger.LogError(_data.ThirdBuildError);
+                    throw new HttpRequestBuilderException(_data.ThirdBuildError);
+                }
                 httpMethod = method;
             }
             return this;
@@ -75,6 +85,11 @@ namespace CCM.Model.Tools
             }
             else
             {
+                if(uriString != null)
+                {
+                    _logger.LogError(_data.FourthBuildError);
+                    throw new HttpRequestBuilderException(_data.FourthBuildError);
+                }
                 uriString = uri;
             }
             return this;
@@ -82,14 +97,21 @@ namespace CCM.Model.Tools
 
         public T Build<T>() where T : class
         {
-            if(_requestMessage is T)
+            try
             {
-                return _requestMessage as T;
+                if (_requestMessage is T)
+                {
+                    return _requestMessage as T;
+                }
+                else
+                {
+                    _logger.LogError(_data.SecondBuildError);
+                    throw new HttpRequestBuilderException(_data.SecondBuildError);
+                }
             }
-            else
+            finally
             {
-                _logger.LogError(_data.SecondBuildError);
-                throw new Exception(_data.SecondBuildError);
+                _requestMessage = null;
             }
         }
     }

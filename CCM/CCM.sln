@@ -13,11 +13,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CCP.Application", "CCP.Appl
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CCP.Infrastructure", "CCP.Infrastructure\CCP.Infrastructure.csproj", "{544D9EC2-69C6-40FE-8349-FDE2CCAEA5AD}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{AD7F68FE-1B0E-4BF7-AFD3-5F0FD1D9FB3A}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{AD7F68FE-1B0E-4BF7-AFD3-5F0FD1D9FB3A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CCM.Access", "CCM.Access\CCM.Access.csproj", "{AC537B36-C9CC-4C45-A572-F86402EABA1F}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CCM.Constants", "CCM.Constants\CCM.Constants.csproj", "{714D3CCD-72ED-409A-9666-A0B702316608}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCM.Model.Tests", "CCM.Model.Tests\CCM.Model.Tests.csproj", "{F7FD25E4-032D-4AEC-8413-33FB59ED122F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CCM.Constants.Tests", "CCM.Constants.Tests\CCM.Constants.Tests.csproj", "{6A3E6D06-7BD3-4C5F-B95F-012C9B7E2644}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -53,9 +57,21 @@ Global
 		{714D3CCD-72ED-409A-9666-A0B702316608}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{714D3CCD-72ED-409A-9666-A0B702316608}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{714D3CCD-72ED-409A-9666-A0B702316608}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F7FD25E4-032D-4AEC-8413-33FB59ED122F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F7FD25E4-032D-4AEC-8413-33FB59ED122F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F7FD25E4-032D-4AEC-8413-33FB59ED122F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F7FD25E4-032D-4AEC-8413-33FB59ED122F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A3E6D06-7BD3-4C5F-B95F-012C9B7E2644}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A3E6D06-7BD3-4C5F-B95F-012C9B7E2644}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A3E6D06-7BD3-4C5F-B95F-012C9B7E2644}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A3E6D06-7BD3-4C5F-B95F-012C9B7E2644}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F7FD25E4-032D-4AEC-8413-33FB59ED122F} = {AD7F68FE-1B0E-4BF7-AFD3-5F0FD1D9FB3A}
+		{6A3E6D06-7BD3-4C5F-B95F-012C9B7E2644} = {AD7F68FE-1B0E-4BF7-AFD3-5F0FD1D9FB3A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B332ECCE-207C-46BD-B9A6-57230CEFA440}

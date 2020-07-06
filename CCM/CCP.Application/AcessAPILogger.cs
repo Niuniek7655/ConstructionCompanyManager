@@ -1,9 +1,9 @@
 ﻿using CCM.Constants;
 using CCM.Domain.Enums;
 using CCM.Domain.Loggers;
+using CCP.Application.Exceptions;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using System;
 
 namespace CCP.Application
 {
@@ -41,7 +41,7 @@ namespace CCP.Application
                     _logger.LogInformation(BasicAccessSenderData.Ms4, login);
                     break;
                 default:
-                    throw new Exception(IncorrectEnumType);
+                    throw new AcessAPILoggerException(IncorrectEnumType);
             }
         }
 
@@ -64,7 +64,7 @@ namespace CCP.Application
                     _logger.LogInformation(BasicAccessSenderData.Ms4, login);
                     break;
                 default:
-                    throw new Exception(IncorrectEnumType);
+                    throw new AcessAPILoggerException(IncorrectEnumType);
             }
         }
     }
