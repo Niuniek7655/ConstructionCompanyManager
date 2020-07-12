@@ -14,9 +14,9 @@ namespace CCM.Access.Controllers
     public class BasicController : ControllerBase
     {
         private readonly IAccessManager _accessManager;
-        private readonly IAcessAPILogger<BasicController> _logger;
+        private readonly IBasicAcessAPILogger<BasicController> _logger;
 
-        public BasicController(IAccessManager accessManager, IAcessAPILogger<BasicController> logger)
+        public BasicController(IAccessManager accessManager, IBasicAcessAPILogger<BasicController> logger)
         {
             _accessManager = accessManager;
             _logger = logger;

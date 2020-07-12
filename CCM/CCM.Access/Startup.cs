@@ -55,7 +55,7 @@ namespace CCM.Access
         private void DIConfig(IServiceCollection services)
         {
             services.AddTransient<IAccessManager, AccessManager>();
-            services.AddTransient(typeof(IAcessAPILogger<>), typeof(AcessAPILogger<>));
+            services.AddTransient(typeof(IBasicAcessAPILogger<>), typeof(BasicAcessAPILogger<>));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

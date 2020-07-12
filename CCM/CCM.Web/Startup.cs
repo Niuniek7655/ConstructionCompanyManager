@@ -1,10 +1,12 @@
 using AutoMapper;
 using CCM.Constants;
 using CCM.Domain;
+using CCM.Domain.Loggers;
 using CCM.Domain.Tools;
 using CCM.Model;
 using CCM.Model.Tools;
 using CCM.Web.Models;
+using CCP.Application;
 using CCP.Infrastructure.Configuations;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -56,6 +58,8 @@ namespace CCM.Web
         {
             services.AddTransient<IHttpRequestBuilder, HttpRequestBuilder>();
             services.AddTransient<IBasicAccessSender, BasicAccessSender>();
+            services.AddTransient<IHttpMessageSender, HttpMessageSender>();
+            services.AddTransient(typeof(IBasicAcessAPILogger<>), typeof(BasicAcessAPILogger<>));
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)

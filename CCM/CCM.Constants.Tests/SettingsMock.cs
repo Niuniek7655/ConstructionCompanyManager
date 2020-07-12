@@ -7,20 +7,21 @@ namespace CCM.Constants.Tests
         public SettingsMock()
         {
             Value = new Settings();
-            Value.AccessMessage = CreateAccessMessage();
+            Value.BasicAccessMessage = CreateAccessMessage();
             Value.BasicAccessSenderData = CreateBasicAccessSenderData();
             Value.HttpRequestBuilderData = CreateHttpRequestBuilderData();
             Value.IncorrectEnumType = "Incorrect enum type";
         }
 
-        private AccessMessage CreateAccessMessage()
+        private BasicAccessMessage CreateAccessMessage()
         {
-            AccessMessage accessMessage = new AccessMessage();
+            BasicAccessMessage accessMessage = new BasicAccessMessage();
             accessMessage.Ms1 = "User login correct to application";
             accessMessage.Ms2 = "User can not login to applicationn";
             accessMessage.Ms3 = "Can not find user";
             accessMessage.Ms4 = "User account create correct";
             accessMessage.Ms5 = "Can not register user correct";
+            accessMessage.Ms6 = "Unexpected error";
             return accessMessage;
         }
 
@@ -29,13 +30,7 @@ namespace CCM.Constants.Tests
             BasicAccessSenderData basicAccessSenderData = new BasicAccessSenderData();
             basicAccessSenderData.AccessClient = "AccessClient";
             basicAccessSenderData.LoginUri = "Basic/Login";
-            basicAccessSenderData.Ms1 = "User login correct to application";
-            basicAccessSenderData.Ms2 = "User can not login to application";
-            basicAccessSenderData.Ms3 = "Can not find user";
-            basicAccessSenderData.Ms4 = "Unexpected error";
             basicAccessSenderData.RegisterUri = "Basic/Register";
-            basicAccessSenderData.Ms5 = "User account create correct";
-            basicAccessSenderData.Ms6 = "Can not register user correct";
             return basicAccessSenderData;
         }
 
