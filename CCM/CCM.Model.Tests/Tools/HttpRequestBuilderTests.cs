@@ -5,6 +5,7 @@ using CCM.Model.Tools;
 using System.Net.Http;
 using Xunit;
 using Newtonsoft.Json;
+using CCM.Model.Tests.Tools.Mocks;
 
 namespace CCM.Model.Tests.Tools
 {

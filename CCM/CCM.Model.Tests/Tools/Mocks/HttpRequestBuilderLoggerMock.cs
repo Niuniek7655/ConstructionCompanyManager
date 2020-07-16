@@ -2,7 +2,7 @@
 using Microsoft.Extensions.Logging;
 using System;
 
-namespace CCM.Model.Tests.Tools
+namespace CCM.Model.Tests.Tools.Mocks
 {
     public class HttpRequestBuilderLoggerMock : ILogger<HttpRequestBuilder>
     {
