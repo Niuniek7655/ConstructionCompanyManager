@@ -11,6 +11,7 @@ namespace CCM.Model.Tests.Tools
 {
     public class HttpRequestBuilderTests
     {
+        #region Arrange method
         private HttpRequestBuilder CreateTestHttpRequestBuilder()
         {
             HttpRequestBuilderLoggerMock loggerMock = new HttpRequestBuilderLoggerMock();
@@ -18,6 +19,7 @@ namespace CCM.Model.Tests.Tools
             HttpRequestBuilder builder = new HttpRequestBuilder(loggerMock, settingsMock);
             return builder;
         }
+        #endregion Arrange method
 
         #region AddContent
         [Fact]
